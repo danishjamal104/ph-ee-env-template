@@ -283,6 +283,21 @@ ph_ee_connector_mojaloop:
   imageTag: "v1.0.0"
   imagePullPolicy: "Always"
   SPRING_PROFILES_ACTIVE: ""
+  switch:
+    quotes:
+      host: "http://3.6.25.92"
+      service: "quoting-service.local"
+    als:
+      host: "http://3.6.25.92"
+      service: "account-lookup-service.local"
+    transfer:
+      host: "http://3.6.25.92"
+      service: "ml-api-adapter.local"
+    transactions:
+      host: "http://3.6.25.92"
+      service: "transaction-request-service.local"
+    oracle:
+      host: "http://account-oracle.mifos.io:4100"
   limits:
     memory: "512M"
     cpu: "500m"
@@ -352,6 +367,10 @@ operations_web:
     backend: {}
   deployment:
     annotations: {}
+    config:
+      - name: ph-ee-operations-web-config
+        mountPath: "/usr/share/nginx/html/assets/configuration.properties"
+        subPath: "configuration.properties"
 
 identity:
   hostname: ""
@@ -860,4 +879,4 @@ keycloak:
       readOnly: true
   extraEnv: |
     - name: KEYCLOAK_IMPORT
-      value: /realm/realm.json
+      value: /realm/kong-keycloak-realm.json
